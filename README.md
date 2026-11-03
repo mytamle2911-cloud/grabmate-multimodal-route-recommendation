@@ -3,13 +3,11 @@
 **Bridging first-mile and last-mile gaps through geospatial data, route comparison and applied machine learning.**
 
 **Role:** Project Leader & Lead MVP Developer  
-**Team:** 6 members · **Year:** 2025 · **Context:** UEH academic AI project  
+**Team:** 6 members 
 **Delivery:** CPMAI × Agile · 10-week project plan · Four 2-week sprints  
 **Focus:** Map Operations · Geospatial Data · Route Recommendation · Data Analytics · Project Management
 
-![GrabMate project cover](assets/grabmate-cover.png)
-
-[**Watch MVP Demo**](prototype/GrabMate_Demo.mp4) · [**Explore Source Notebook**](analysis/GrabMate_EDA_Modeling_Prototype.ipynb) · [**Project Report**](docs/GrabMate_Final_Report.pdf) · [**Project Management Artifacts**](docs/project-management/README.md) · [**Original Landing Page**](https://bit.ly/486Xamc)
+[**Project Management Artifacts**](docs/project-management/README.md) · [**Original Landing Page**](https://bit.ly/486Xamc)
 
 > **Independent student project.** GrabMate is a university-developed **concept and proof of concept**, not an official Grab feature, partnership, live integration or production release. Operational KPIs and financial projections are *proposed scenarios*, not measured Grab business outcomes.
 
