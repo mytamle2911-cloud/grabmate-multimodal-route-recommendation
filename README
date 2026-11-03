@@ -1,0 +1,139 @@
+# GrabMate — AI-Driven Multimodal Journey Recommendation
+
+**A student-led product innovation and applied AI project | Ho Chi Minh City, 2025**  
+**My role:** Project Leader · Project Manager · Lead MVP Developer  
+**Team:** 6 members · **Approach:** CPMAI × Agile · **Project plan:** 10 weeks / 4 development sprints
+
+![GrabMate project cover](assets/grabmate-cover.png)
+
+> **Portfolio / academic project disclaimer:** GrabMate is a proposed concept developed for a university AI project. It is **not an official Grab product**, endorsed Grab integration, or live public-transit deployment. Some operations, rollout, and financial items in the coursework are plans or modeled scenarios, **not observed production outcomes**.
+
+## At a glance
+
+| Focus | Evidence / deliverable |
+| --- | --- |
+| Urban mobility & problem solving | First-mile/last-mile journey problem; integrated Grab + Bus / Metro options |
+| Data & analytics | 500 sample multimodal trips, 50 columns in model source; traffic and route exploration |
+| Machine learning | RandomForest_Deep for **recommended trip cost**; **R² 0.931**, **MAE 495.68 VND**, **MAPE 6.74%** on the notebook's held-out evaluation |
+| MVP | Python notebook-based interactive journey recommendation demo using OSM/Nominatim geocoding, model-assisted fares and rule-based travel times |
+| Leadership & project management | WBS, ownership matrix, four-sprint delivery plan, communication plan, risk register, launch OKRs and closeout document |
+| Product / business case | Problem framing, prototype, financial assumptions and proposed Go-to-Market / operationalization |
+
+**Important metric distinction:** The trained ML target is `recommended_total_cost_vnd` (trip **cost**, not ETA). The MVP's travel-time estimates are based on distance/transport assumptions. Dataset/test metrics are **offline prototype evidence**, not real-world travel-time improvements. Earlier draft values such as ETA R²≈0.588 should **not** be used as results for this notebook.
+
+## 1. Problem & opportunity
+
+Travelers combining ride-hailing with bus or metro encounter disconnected planning, uncertain transfers and first-/last-mile friction. GrabMate explores an **end-to-end route comparison** of ride-hailing-only and public-transit-supported alternatives, helping a commuter balance **estimated fare**, **time**, and **route availability**. The target scenarios cover the Metro Line 1 corridor and connecting bus access across Ho Chi Minh City.
+
+**Core question:** How might a mobility platform make GrabBike/GrabCar + Bus/Metro trips easier to compare and plan, without assuming an existing production integration?
+
+## 2. Product concept & MVP flow
+
+1. Enter origin and destination (the demo includes selected UEH location aliases).
+2. Resolve locations through a local alias mapping or OpenStreetMap Nominatim.
+3. Generate candidate modes: Grab only, Grab → Bus and Grab → Metro where supported.
+4. Estimate distance, journey duration and transport fares; use the trained ML model for cost estimation where available, with rule-based fallback.
+5. Compare options and recommend a route using the prototype's selection logic.
+6. Display transfer/stop details where data is defined.
+
+The demo uses **simulated traffic states** and simplified fares/times, not live Grab booking, verified real-time bus arrival feeds, or production navigation.
+
+**Demo:** [Watch the included walkthrough](prototype/GrabMate_Demo.mp4) · [Original project landing page](https://bit.ly/486Xamc) · [Original project Notion](https://bit.ly/3KqCV9T)
+
+## 3. My role & contributions
+
+I led the six-person project and was the **primary developer of the demonstrable MVP**. The team's Work Breakdown Structure explicitly assigns these deliverables to me:
+
+| Area | My direct ownership | Evidence |
+| --- | --- | --- |
+| Project leadership | Project Manager named on WBS; work breakdown, task owners and coordination across CPMAI stages | [WBS](docs/project-management/Work_Breakdown_Structure.pdf), [management summary](docs/project-management/README.md) |
+| Data understanding | Data-source inventory and data dictionary | [Project report](docs/GrabMate_Final_Report.pdf), [notebook](analysis/GrabMate_EDA_Modeling_Prototype.ipynb) |
+| Product design | MVP interface mockups | [WBS](docs/project-management/Work_Breakdown_Structure.pdf) |
+| ML development | Data preparation and baseline modeling | [Notebook](analysis/GrabMate_EDA_Modeling_Prototype.ipynb) |
+| Model assessment | Comparative evaluation, feature importance / SHAP analysis | [Notebook](analysis/GrabMate_EDA_Modeling_Prototype.ipynb) |
+| MVP engineering | Interactive prototype / demo integration and delivery | [Demo](prototype/GrabMate_Demo.mp4), [notebook](analysis/GrabMate_EDA_Modeling_Prototype.ipynb) |
+
+**Shared team work:** Market analysis, economic evaluation, model tuning, rollout planning, graphics and final reporting were distributed among different members per WBS. I led delivery and integration, not every workstream individually.
+
+## 4. Project management — CPMAI × Agile
+
+The project plan combines AI lifecycle governance (business understanding → data understanding → preparation → modeling → evaluation → operationalization) with four time-boxed sprints:
+
+| Sprint | Core focus | Outputs |
+| --- | --- | --- |
+| 1 — Weeks 2–3 | Business challenge and data discovery | AI Canvas, business analysis, data inventory, mockups |
+| 2 — Weeks 4–5 | Data preparation and baseline models | EDA, preprocessing, baseline and initial metrics |
+| 3 — Weeks 6–7 | Model improvement and validation | Final-model comparison, SHAP, business case, deployment plan |
+| 4 — Weeks 8–9 | MVP, packaging and handoff | Interactive demo, presentation and final report |
+
+The **10-week plan** includes initial setup and wrap-up outside the four 2-week sprint blocks. See the [project management hub](docs/project-management/README.md) for traceable PM documents, planned OKRs, stakeholder communication, risk controls and evidence-quality notes.
+
+## 5. Data & ML approach
+
+- **Data:** A coursework sample of **500 multimodal trip records and 50 columns** was loaded in the notebook from `multimodal_trip_samples`. The original workbook `hcm_multimodal_dataset_v3.xlsx` is **not included** in the provided source files. See [Data README](data/README.md).
+- **Target:** `recommended_total_cost_vnd` — cost prediction in VND; not a trip-duration or ETA target.
+- **Inputs:** nine pre-trip fields: distance, traffic level, bus/metro availability, passenger count, time-of-day, walking distance to transit, pickup ETA and nearby driver distance.
+- **Pipeline:** numeric/categorical preprocessing with imputation inside the scikit-learn pipeline (to reduce preprocessing leakage), model comparison and held-out split (80/20).
+- **Baselines and candidates:** Dummy, Linear Regression, Ridge, Decision Tree, Random Forest.
+- **Evaluation:** MAE, MAPE, RMSE and R²; explanatory analysis includes feature importance and SHAP.
+
+| Model | MAE (VND) | MAPE | RMSE (VND) | R² |
+| --- | ---: | ---: | ---: | ---: |
+| **RandomForest_Deep** | **495.68** | **6.74%** | **569.65** | **0.931** |
+| Ridge | 562.58 | 6.93% | 860.35 | 0.843 |
+| Linear Regression | 564.35 | 6.94% | 866.33 | 0.841 |
+| Dummy | 784.17 | 8.54% | 2,173.43 | -0.000 |
+| Decision Tree | 958.25 | 11.06% | 1,958.15 | 0.188 |
+
+*Metrics transcribed from the saved model-comparison output of the supplied notebook; not rerun because the training data workbook was not supplied. Values reported by the notebook may differ from an evaluation on new real-world data.*
+
+### Why Random Forest?
+
+The project tested simple baselines against a tree ensemble because costs depend nonlinearly on distance, traffic conditions and mode availability. Random Forest obtained the lowest MAE in the saved comparison and supports feature-importance diagnostics. This alone does **not** establish performance under unseen cities, live fares, seasonal disruptions or routing constraints.
+
+## 6. Business & success metrics
+
+The team produced a modeled business evaluation workbook and **proposed** launch OKRs. These are scenario targets, **not validated Grab operational achievements**. Examples include: 20,000 beta participants, 15% shorter journeys, 99.5% uptime and partner API freshness within five minutes. See [OKRs](docs/project-management/Project_OKRs.pdf) and [business evaluation](docs/business/Business_Evaluation.xlsx).
+
+## 7. Limitations & next steps
+
+- Training workbook and fitted `model.pkl` were not among the uploaded deliverables; the notebook is provided as **archived project source**, not a one-command reproducible app.
+- Some route, bus/metro, weather/traffic and time assumptions are approximations or simulated; the demo is not a verified production-grade city routing engine.
+- Data represent a limited HCMC corridor and 2025 study context; validate address changes, stops, service patterns and coverage before deployment.
+- Recheck model generalization with independent real-world fare and journey records, time-based splits, out-of-distribution tests, latency benchmarks and route feasibility checks.
+- Replace random traffic inputs with authorized, timestamped feeds; model actual ETA separately; build a user-facing application and instrument adoption / satisfaction tests.
+- The project closeout draft contains conflicting rollout/ROI statements and timeline dates versus the final report / plan; treat it as a **planning artifact**, not proof of a live launch. See [evidence notes](results/Evidence_and_Limitations.md).
+
+## 8. Repository navigation
+
+```text
+grabmate-multimodal-route-recommendation/
+├── README.md
+├── assets/                      # Project cover
+├── docs/
+│   ├── GrabMate_Final_Report.pdf
+│   ├── GrabMate_Presentation.pdf
+│   ├── business/                 # Financial scenario workbook
+│   └── project-management/       # WBS, OKRs, risks, comms, closeout
+├── research/                     # Problem & user context
+├── data/                         # Data inventory; original training data not provided
+├── analysis/                     # Original EDA, training, SHAP, fairness & MVP notebook
+├── models/                       # Model methodology / reproduction notes
+├── prototype/                    # Video demonstration / product flow
+├── results/                      # Validated-vs-planned evidence and limitations
+├── requirements.txt
+└── .gitignore
+```
+
+## 9. How to inspect the project
+
+1. Watch [GrabMate_Demo.mp4](prototype/GrabMate_Demo.mp4) and review [the presentation](docs/GrabMate_Presentation.pdf).
+2. Read [the development notebook](analysis/GrabMate_EDA_Modeling_Prototype.ipynb) for source and saved figures. The first two cells require the **missing original dataset**.
+3. Check [ML results](results/Model_Evaluation.md) and the [model methodology](models/README.md).
+4. Review [the WBS and project controls](docs/project-management/README.md).
+
+**Running from source:** The original notebook used a Windows-specific local dataset path, changed to `data/hcm_multimodal_dataset_v3.xlsx` in this archived copy. To retrain, obtain the original dataset, install packages in `requirements.txt`, run notebook cells in order, and use `model.pkl` created by its training stage. Network access is required for Nominatim lookups. The demo is console/notebook-driven; no standalone deployed web app is claimed.
+
+---
+
+**Academic context:** University of Economics Ho Chi Minh City (UEH), AI Project course, Group 2 (November 2025). This portfolio presents an independently developed university concept, not an official affiliation with or employment at Grab.
