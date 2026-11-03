@@ -1,0 +1,26 @@
+# Project Management Portfolio — GrabMate
+
+**Project Manager:** Lê Thị Mỹ Tâm | **Team:** 6 | **Project methodology:** CPMAI × Agile | **Roadmap:** 10 weeks / four 2-week sprints
+
+## Management evidence
+
+| Artifact | Why it matters |
+| --- | --- |
+| [Work Breakdown Structure](Work_Breakdown_Structure.pdf) | Milestones, task ownership, estimates and CPMAI phases; identifies my direct data, modeling, design, evaluation and MVP contributions |
+| [Project OKRs](Project_OKRs.pdf) | Proposed objectives and measurable targets covering adoption, seamless journeys and stability; **targets not actual production performance** |
+| [Risk Management Plan](Risk_Management_Plan.pdf) | Risks from delayed transit feeds, peak-hour forecast errors, expensive options, incomplete trip data, rider/driver awareness, and mitigation actions |
+| [Communication Plan](Communication_Plan.pdf) | Proposed stakeholder groups, owner/cadence, agenda and channel for AI, infrastructure, transit partners, marketing, support, QA, operations and finance |
+| [Project Closeout Report](Project_Closeout_Report.pdf) | Draft closeout/scenario narrative and backlog of address normalization, live feeds, driver operations and additional validation; contains internally inconsistent dates/metrics |
+| [Business Evaluation](../business/Business_Evaluation.xlsx) | Scenario finance assumptions and a modeled multi-year outlook |
+
+## Delivery approach
+
+Project planning linked business problem discovery to data understanding, preparation, modeling, validation and operationalization. Team members owned discrete workstreams through WBS. Work was organized into four two-week sprints within a longer ten-week project window. The project report also discusses RACI, progress monitoring and risk/stakeholder governance.
+
+## My PM scope
+
+As named Project Manager in the WBS, I coordinated the overall delivery and personally handled several critical-path technical deliverables, including **data documentation, mockup design, baseline modeling, advanced model evaluation and interactive prototype integration**. The WBS describes work assignments; it does not independently prove that every proposed external stakeholder meeting, partner integration or rollout occurred.
+
+## Evidence standards
+
+A project plan and OKR sheet describe **intent**. A notebook saved output and a demo video demonstrate **prototype execution**. Production adoption, live transit API synchronization, uptime and commercial impact were **not independently verified** in the supplied assets. Avoid reporting forecasts as achieved operational KPIs.
